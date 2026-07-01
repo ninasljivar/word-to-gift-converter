@@ -1,8 +1,17 @@
 from docx import Document
 
+while True:
+    name = input("Insert document name here: ")
 
-name = input("Insert document name here: ")
-document = Document(name)
+    if name.lower() == "exit":
+        print("Program terminated.")
+        exit()
+
+    try:
+        document = Document(name)
+        break
+    except FileNotFoundError:
+        print("The selected file could not be found.")
 
 word_questions=[]
 for paragraf in document.paragraphs:

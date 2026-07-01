@@ -4,8 +4,7 @@ A Python application that converts multiple-choice questions stored in Microsoft
 
 ## Features
 
-- Reads questions directly from a Word document
-- Supports multiple-choice questions ([MC])
+- Reads questions from a Microsoft Word (.docx) file
 - Validates question format before conversion
 - Detects common formatting errors:
   - Missing correct answer
@@ -15,7 +14,9 @@ A Python application that converts multiple-choice questions stored in Microsoft
   - Empty question text
   - Empty answer text
   - Less than two answer options
-- Generates a valid GIFT output file
+- Converts valid questions to GIFT format
+- Prompts the user to enter the document name
+- Handles missing files and asks the user to try again
 
 
 ## Installation
@@ -41,9 +42,14 @@ Run:
 ```bash
 python main.py
 ```
-Type the name of the document in console -> Enter
+Enter the name of the document in console -> Enter
 
 The generated GIFT file will be saved in the project folder.
+
+If the file cannot be found, the program will display an error message and ask you to enter the file name again.
+
+
+If you wish to terminate the program, as name type "exit".
 
 ## Technologies
 
