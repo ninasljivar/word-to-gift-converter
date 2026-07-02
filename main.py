@@ -55,6 +55,22 @@ def validate(question):
     return True
 
 
+def escape(text):
+    replacements = {
+        "\\":"\\\\",
+        "~":r"\~",
+        "=":r"\=",
+        "#":r"\#",
+        "{":r"\{",
+        "}":r"\}",
+        ":":r"\:",
+    }
+
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+
+    return text
+
 
 questions = []
 
@@ -67,8 +83,8 @@ for line in word_questions:
         if current_question:
             qu = {
                 "num": question_number,
-                "question": current_question,
-                "answers": answers,
+                "question": escape(current_question),
+                "answers": [escape(an) for an in answers],
             }
             if validate(qu):
                 questions.append(qu)
@@ -83,14 +99,13 @@ for line in word_questions:
 
 qu = {
     "num": question_number,
-    "question": current_question,
-    "answers": answers,
+    "question": escape(current_question),
+    "answers": [escape(an) for an in answers],
 }
 
 if validate(qu):
+
     questions.append(qu)
-
-
 
 
 # GIFT
@@ -102,9 +117,9 @@ for q in questions:
 
     for answer in q["answers"]:
         if "[1]" in answer:
-            gift += f"\t=%100%{answer[7:]}#Correct!\n"
+            gift += f"\t=%100%{answer.split("]")[1].strip()}#Correct!\n"
         else:
-            gift += f"\t~%0%{answer[7:]}#Incorrect!\n"
+            gift += f"\t~%0%{answer.split("]")[1].strip()}#Incorrect!\n"
     gift+="\n}\n"
 
 
